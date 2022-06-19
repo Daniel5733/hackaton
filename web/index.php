@@ -1,113 +1,20 @@
-<?php 
-session_start();
-if(!isset($_SESSION['usuario'])) {
-  header('location: login.php');
-} else {
-  $page = $_GET['page'] ?? 'dashboard';
-  $page_include = "";
-  $title = "";
-  switch(strtolower($page)) {
-    case 'estacionamentos':
-      $title = "Espaços de Estacionamento";
-      $page_include = "Visao/components/estacionamentos.php";
-      break;
-    case 'tickets':
-      $title = "Tickets";
-      $page_include = "Visao/components/tickets.php";
-      break;
-    case 'novo_ticket':
-      $title = "Informe o Veículo";
-      $page_include = "Visao/components/novo_ticket.php";
-      break;
-    case 'finalizar_ticket':
-      $title = "Ticket";
-      $page_include = "Visao/components/finalizar_ticket.php";
-      break;
-    case 'admin.tickets':
-      $title = "Histórico de Tickets";
-      $page_include = "Visao/admin.components/tickets.php";
-      break;
-    case 'admin.veiculos':
-      $title = "Veículos";
-      $page_include = "Visao/admin.components/veiculos.php";
-      break;
-    case 'admin.usuarios':
-      $title = "Gestão de Utilizadores";
-      $page_include = "Visao/admin.components/usuarios.php";
-      break;
-    case 'admin.usuario.novo':
-      $title = "Novo Utilizador";
-      $page_include = "Visao/admin.components/novo_usuario.php";
-      break;
-    case 'admin.usuario.editar':
-      $title = "Editar Utilizador";
-      $page_include = "Visao/admin.components/editar_usuario.php";
-      break;
-    case 'admin.marcas':
-      $title = "Gestão de Marcas";
-      $page_include = "Visao/admin.components/marca.php";
-      break;
-    case 'admin.marca.novo':
-      $title = "Nova Marca";
-      $page_include = "Visao/admin.components/nova_marca.php";
-      break;
-    case 'admin.marca.editar':
-      $title = "Editar Marca";
-      $page_include = "Visao/admin.components/editar_marca.php";
-      break;
-    case 'admin.modelos':
-      $title = "Gestão de Modelos";
-      $page_include = "Visao/admin.components/modelo.php";
-      break;
-    case 'admin.modelo.novo':
-      $title = "Novo Modelo";
-      $page_include = "Visao/admin.components/novo_modelo.php";
-      break;
-    case 'admin.modelo.editar':
-      $title = "Editar Modelo";
-      $page_include = "Visao/admin.components/editar_modelo.php";
-      break;
-    case 'admin.estacionamentos':
-      $title = "Gestão de Estacionamentos";
-      $page_include = "Visao/admin.components/estacionamento.php";
-      break;
-    case 'admin.estacionamento.novo':
-      $title = "Novo Estacionamento";
-      $page_include = "Visao/admin.components/novo_estacionamento.php";
-      break;
-    case 'admin.estacionamento.editar':
-      $title = "Editar Estacionamento";
-      $page_include = "Visao/admin.components/editar_estacionamento.php";
-      break;
-    case 'admin.promocao':
-      $title = "Gestão de Promoções";
-      $page_include = "Visao/admin.components/promocao.php";
-      break;
-    case 'admin.promocao.novo':
-      $title = "Novo Promoção";
-      $page_include = "Visao/admin.components/novo_promocao.php";
-      break;
-    case 'admin.promocao.editar':
-      $title = "Editar Promoção";
-      $page_include = "Visao/admin.components/editar_promocao.php";
-      break;
-    case 'admin.preco':
-      $title = "Gestão de Preços";
-      $page_include = "Visao/admin.components/preco.php";
-      break;
-    case 'admin.preco.novo':
-      $title = "Novo Preço";
-      $page_include = "Visao/admin.components/novo_preco.php";
-      break;
-    case 'admin.preco.editar':
-      $title = "Editar Preço";
-      $page_include = "Visao/admin.components/editar_preco.php";
-      break;
+<?php
+
+require "config/conexao.php";
+$db = new conexao();
+
+$page = (isset($_GET['page']) ? $_GET['page'] : "");
+$page_include = "";
+$title = "";
+switch (strtolower($page)){
+    case "transactions":
+        $title = "Transações";
+        $page_include = "componets/transactions.php";
+        break;
     default:
-      $title = "Dashboard";
-      $page_include = "Visao/components/dashboard.php";
-      break;
-  }
+        $title = "Dashboard";
+        $page_include = "componets/dashboard.php";
+
 }
 ?>
 <!DOCTYPE html>
@@ -115,7 +22,7 @@ if(!isset($_SESSION['usuario'])) {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Garagem MED | <?php echo $title; ?></title>
+  <title>Hackaton</title>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -178,9 +85,9 @@ if(!isset($_SESSION['usuario'])) {
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+    <a href="?page=dashboard" class="brand-link">
       <img src="assets/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Garagem MED</span>
+      <span class="brand-text font-weight-light">HACKATON</span>
     </a>
 
     <!-- Sidebar -->
@@ -191,10 +98,10 @@ if(!isset($_SESSION['usuario'])) {
           <img src="assets/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $_SESSION['usuario']['nome'];?></a>
+          <a href="#" class="d-block">Admin</a>
         </div>
       </div>
-      <?php include('Visao/commons.components/menu.php'); ?>
+      <?php include('commons.components/menu.php'); ?>
     </div>
     <!-- /.sidebar -->
   </aside>
@@ -238,31 +145,49 @@ if(!isset($_SESSION['usuario'])) {
       <a href="./Controlo/logout.php">Terminar a sessão</a>
     </div>
     <!-- Default to the left -->
-    <strong>Copyright &copy; 2022 <a href="javascript:void(0)">ISAF::IGF - GRUPO 3</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2022 <a href="javascript:void(0)">Hackaton - GRUPO Amarelo</a>.</strong> All rights reserved.
   </footer>
 </div>
 <!-- ./wrapper -->
 
-  <!-- InputMask -->
-  <script src="plugins/moment/moment.min.js"></script>
-  <script src="plugins/inputmask/jquery.inputmask.min.js"></script>
+<!-- jQuery -->
+<script src="../../plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="../../plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="../../plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="../../plugins/jszip/jszip.min.js"></script>
+<script src="../../plugins/pdfmake/pdfmake.min.js"></script>
+<script src="../../plugins/pdfmake/vfs_fonts.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="../../plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- AdminLTE App -->
+<script src="../../dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="../../dist/js/demo.js"></script>
+<!-- Page specific script -->
 <script>
-
-$(document).ready( function () {
-    $('[data-mask]').inputmask();
-    $('.select2bs4').select2({
-      theme: 'bootstrap4'
-    })
-    $('.list-table').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": true,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
+    $(function () {
+        $("#example1").DataTable({
+            "responsive": true, "lengthChange": false, "autoWidth": false,
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     });
-});
 </script>
 </body>
 </html>
