@@ -24,7 +24,23 @@ class ClienteRepository
         return $this->model->find($id);
     }
     public function movimentos($cliente_id) {
-        DB::table('movimento')->where('cliente_id', $cliente_id)->get();
+        return DB::table('movimento')->where('cliente_id', $cliente_id)->get();
+    }
+
+    public function countMovimentos() {
+        return DB::table('movimento')->count();
+    }
+
+    public function countCreditos() {
+        return DB::table('movimento')->where('tipo', 'Crédito')->count();
+    }
+
+    public function countDebitos() {
+        return DB::table('movimento')->where('tipo', 'Débito')->count();
+    }
+
+    public function countClients() {
+        return DB::table('cliente')->count();
     }
     public function criar($data) {
 

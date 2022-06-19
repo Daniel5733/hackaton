@@ -81,6 +81,9 @@ $app->configure('app');
         'security' => App\Http\Middleware\Security::class,
     ]);
 
+    $app->middleware([
+        App\Http\Middleware\Cors::class,
+    ]);
 /*
 |--------------------------------------------------------------------------
 | Register Service Providers

@@ -13,6 +13,10 @@
 |
 */
 
+$router->group(['prefix' => 'dashboard', 'middleware' => ['security']], function () use ($router) {
+    $router->get('/cards', ['uses' => 'ClienteController@dashboard']);
+});
+
 $router->group(['prefix' => 'clientes', 'middleware' => ['security']], function () use ($router) {
     $router->get('/lista', ['uses' => 'ClienteController@lista']);
     $router->get('/lista/{id}', ['uses' => 'ClienteController@detalhe']);

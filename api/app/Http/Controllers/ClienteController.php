@@ -17,6 +17,9 @@ class ClienteController extends Controller
         $this->service = $_service;
     }
 
+    public function dashboard(Request $request) {
+        return $this->service->dashboard($request);
+    }
     public function lista(Request $request) {
         return $this->service->lista($request);
     }

@@ -1,5 +1,5 @@
 <?php
-$res = $db->Consulta("SELECT * FROM movimento");
+$res = $db->Consulta("SELECT m.*, p.designacao as producto, c.surname as cliente FROM movimento m, produto p, cliente c WHERE m.produto_id = p.id AND m.cliente_id = c.id limit 10000");
 $numTransacoes = mysqli_num_rows($res);
 ?>
 
@@ -21,7 +21,6 @@ $numTransacoes = mysqli_num_rows($res);
                         <th>Cliente</th>
                         <th>Valor</th>
                         <th>Data</th>
-                        <th>Saldo Pós-Movimento</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -33,10 +32,9 @@ $numTransacoes = mysqli_num_rows($res);
                         <td>".$valor['id']."</td>
                         <td>".$valor['designacao']."</td>
                         <td>".$valor['tipo']."</td>
-                        <td>".$valor['produto_id']."</td>
-                        <td>".$valor['cliente_id']."</td>
+                        <td>".$valor['producto']."</td>
+                        <td>".$valor['cliente']."</td>
                         <td>".$valor['valor']."</td>
-                        <td>".$valor['data']."</td>
                         <td>".$valor['data']."</td>
                     </tr>";
                     }
